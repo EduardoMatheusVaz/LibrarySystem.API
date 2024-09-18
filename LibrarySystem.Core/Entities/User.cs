@@ -10,7 +10,7 @@ namespace LibrarySystem.Core.Entities;
 
 public class User : BaseEntity
 {
-    public User(string name, string email, int phone)
+    public User(string name, string email, string phone)
     {
         Name = name;
         Email =     email;
@@ -27,7 +27,7 @@ public class User : BaseEntity
 
     public string Name { get; private set; }
     public string Email { get; private set; }
-    public int Phone { get; private set; }
+    public string Phone { get; private set; }
     public UserEnum Status { get; private set; }
     public DateTime Registered { get; private set; } 
 

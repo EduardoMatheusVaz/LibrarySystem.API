@@ -1,5 +1,7 @@
 ﻿using Azure.Core;
 using Dapper;
+using LibrarySystem.Core.Repositories;
+using LibrarySystem.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -13,24 +15,17 @@ namespace LibrarySystem.Application.Commands.DeleteLoan;
 
 public class LoanDeleteCommandHandler : IRequestHandler<LoanDeleteCommand, Unit>
 {
-    private readonly string _connectionstring;
+    private readonly ILoanRepository _loanRepository;
 
-    public LoanDeleteCommandHandler(IConfiguration configuration)
+    public LoanDeleteCommandHandler(ILoanRepository loanRepository)
     {
-        _connectionstring = configuration.GetConnectionString("DataBase");
+        _loanRepository = loanRepository;
     }
 
     public async Task<Unit> Handle(LoanDeleteCommand request, CancellationToken cancellationToken)
     {
-        using (var sqlConnection = new SqlConnection(_connectionstring))
-        {
-            sqlConnection.Open();
-
-            var script = "DELETE FROM tb_Loan WHERE Id = @Id";
-
-            await sqlConnection.ExecuteAsync(script, new { Id = request.Id });
-
-            return Unit.Value;
-        }
+        await _loanRepository.Delete(request.Id);
+        
+        return Unit.Value;
     }
 }

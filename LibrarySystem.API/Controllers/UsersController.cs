@@ -2,7 +2,6 @@
 using LibrarySystem.Application.Commands.DeleteUser;
 using LibrarySystem.Application.Commands.UpdateUser;
 using LibrarySystem.Application.Commands.UserActive;
-using LibrarySystem.Application.Commands.UserOff;
 using LibrarySystem.Application.Queries.GetAllUsers;
 using LibrarySystem.Application.Queries.GetByIdUsers;
 using MediatR;
@@ -86,18 +85,7 @@ public class UsersController : ControllerBase
     }
 
 
-    [HttpPut("{id}/Off")]
-    public async Task<IActionResult> Off (int id)
-    {
-        var command = new UserOffCommand(id);
-
-        var user = await _mediator.Send(command);
-
-        return NoContent();
-    }
-
-
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}/Off")]
     public async Task<IActionResult> Delete(int id)
     {
         var command = new DeleteUserCommand(id);

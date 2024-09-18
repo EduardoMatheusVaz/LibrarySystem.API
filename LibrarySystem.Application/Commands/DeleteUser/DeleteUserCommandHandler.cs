@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using LibrarySystem.Core.Repositories;
+using LibrarySystem.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -12,24 +14,21 @@ namespace LibrarySystem.Application.Commands.DeleteUser;
 
 public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
 {
-    private readonly string _connectionstring;
+    private readonly IUserRepository _userRepository;
+    private readonly LibrarySystemDbContext _dbcontext;
 
-    public DeleteUserCommandHandler(IConfiguration configuration)
+    public DeleteUserCommandHandler(IUserRepository userRepository, LibrarySystemDbContext dbcontext)
     {
-        _connectionstring = configuration.GetConnectionString("DataBase");
+        _userRepository = userRepository;
+        _dbcontext = dbcontext;
     }
 
     public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        using ( var sqlConnection = new SqlConnection(_connectionstring))
-        {
-            sqlConnection.Open();
+        await _userRepository.Delete(request.Id);
 
-            var script = "DELETE FROM tb_User WHERE Id = @Id";
+        await _dbcontext.SaveChangesAsync();
 
-            await sqlConnection.ExecuteAsync(script, new { Id = request.Id});
-
-            return Unit.Value;
-        }
+        return Unit.Value;
     }
 }

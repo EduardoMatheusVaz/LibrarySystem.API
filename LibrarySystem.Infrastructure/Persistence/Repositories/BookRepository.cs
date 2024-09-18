@@ -43,14 +43,10 @@ public class BookRepository : IBookRepository
 
     public async Task Delete(int id)
     {
-        using (var sqlConnection = new SqlConnection(_connectionstring))
-        {
-            sqlConnection.Open();
 
-            var script = "DELETE FROM tb_Book WHERE Id = Id";
+        var book = _dbcontext.Book.SingleOrDefault(b => b.Id == id);
 
-            await sqlConnection.ExecuteAsync(script, new { Id = id });
-        }
+        book.Off();
 
         await _dbcontext.SaveChangesAsync();
     }

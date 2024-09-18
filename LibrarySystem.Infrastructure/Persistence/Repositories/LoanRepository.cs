@@ -1,4 +1,4 @@
-﻿using Azure.Core;
+﻿ using Azure.Core;
 using Dapper;
 using LibrarySystem.Core.Entities;
 using LibrarySystem.Core.Repositories;
@@ -34,15 +34,6 @@ public class LoanRepository : ILoanRepository
         await _dbcontext.SaveChangesAsync();
     }
 
-    public async Task Cancelled(int id)
-    {
-        var loan = _dbcontext.Loan.SingleOrDefault(p => p.Id == id);
-
-        loan.Cancelled();
-
-        await _dbcontext.SaveChangesAsync();
-    }
-
     public async Task<int> Create(Loan loan)
     {
         var newLoan = new Loan(loan.UserId, loan.BookId);
@@ -52,9 +43,15 @@ public class LoanRepository : ILoanRepository
         return loan.Id;
     }
 
-    public Task Delete(int id)
+    public async Task Delete(int id)
     {
-        throw new NotImplementedException();
+
+        var loan = _dbcontext.Loan.SingleOrDefault(l => l.Id == id);
+
+        loan.Cancelled();
+
+        await _dbcontext.SaveChangesAsync();
+
     }
 
     public async Task<List<Loan>> GetAllAsync()

@@ -41,9 +41,15 @@ public class UserRepository : IUserRepository
         return userNew.Id;
     }
 
-    public Task Delete(int id)
+    public async Task Delete(int id)
     {
-        throw new NotImplementedException();
+
+        var user = _dbcontext.User.SingleOrDefault(u => u.Id == id);
+
+        user.Off();
+
+        await _dbcontext.SaveChangesAsync();
+
     }
 
     public async Task<List<User>> GetAllAsync()
@@ -72,15 +78,6 @@ public class UserRepository : IUserRepository
 
             return user;
         }
-    }
-
-    public async Task Off(int id)
-    {
-        var user = _dbcontext.User.SingleOrDefault(p => p.Id == id);
-
-        user.Off();
-
-        await _dbcontext.SaveChangesAsync();
     }
 
     public async Task Update(int id, User user)

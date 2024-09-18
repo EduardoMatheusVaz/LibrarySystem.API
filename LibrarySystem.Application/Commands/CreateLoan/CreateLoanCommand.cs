@@ -10,8 +10,11 @@ namespace LibrarySystem.Application.Commands.CreateLoan;
 
 public class CreateLoanCommand : IRequest<int>
 {
-    public CreateLoanCommand()
+    public CreateLoanCommand(int userId, int bookId)
     {
+        UserId = userId;
+        BookId = bookId;
+
         Date = DateTime.Now;
         Status = LoanStatusEnum.Active;
     }

@@ -14,7 +14,6 @@ public interface ILoanRepository
     Task<Loan> GetByIdAsync(int id);
     Task Update(int id, Loan loan);
     Task Active(int id);
-    Task Cancelled(int id);
     Task Late(int id);
     Task Reserved(int id);
     Task Returned(int id);

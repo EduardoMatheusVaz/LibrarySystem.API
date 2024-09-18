@@ -15,6 +15,5 @@ public interface IUserRepository
     Task<User> GetByIdAsync(int id);
     Task Update(int id, User user);
     Task Active(int id);
-    Task Off(int id);
     Task Delete(int id);
 }

@@ -1,4 +1,5 @@
 ﻿using LibrarySystem.Core.Enums;
+using System.Linq.Expressions;
 
 namespace LibrarySystem.Core.Entities;
 
@@ -69,6 +70,17 @@ public class Book : BaseEntity
         }
     }
 
+    public void Off()
+    {
+        if (Status == BookStatusEnum.Available)
+        {
+            Status = BookStatusEnum.Off;
+        }
+        if (Status == BookStatusEnum.Rented)
+        {
+            Status = BookStatusEnum.Off;
+        }
+    }
 
     public void Update(string title, string author, string iSBN, int year, string synopsis)
     {

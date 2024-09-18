@@ -1,7 +1,6 @@
 ﻿using LibrarySystem.Application.Commands.CreateLoan;
 using LibrarySystem.Application.Commands.DeleteLoan;
 using LibrarySystem.Application.Commands.LoanActive;
-using LibrarySystem.Application.Commands.LoanCancelled;
 using LibrarySystem.Application.Commands.LoanLate;
 using LibrarySystem.Application.Commands.LoanReserved;
 using LibrarySystem.Application.Commands.LoanReturned;
@@ -115,17 +114,6 @@ public class LoansController : ControllerBase
     }
 
 
-    [HttpPut("cancelled/{id}")]
-    public async Task<IActionResult> Cancelled(int id)
-    {
-        var command = new LoanCancelledCommand(id);
-
-        await _mediator.Send(command);
-
-        return NoContent();
-    }
-
-
     // api/loans/1, 2, 3, 4...
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
@@ -136,5 +124,4 @@ public class LoansController : ControllerBase
 
         return NoContent();
     }
-
 }

@@ -3,7 +3,7 @@
 
 ### Funcionalidades:
 - Gerenciamento de livros (inclusão, edição e exclusão)
-- Registro de empréstimos (inclusão, edição e exclusão)
+- Gerenciamento de empréstimos (inclusão, edição e exclusão)
 - Gerenciamento de usuários (inclusão, edição e exclusão)
 - Consulta de livros, usuários e empréstimos
 

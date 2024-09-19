@@ -1,11 +1,11 @@
 # Sistema de Gerenciamento de Biblioteca
-## Esta aplicação simula um sistema de gerenciamento de biblioteca com algumas operações, como a gestão do controle de livros, o registro de empréstimos, além do cadastro de usuários, livros e empréstimos.
+## Esta aplicação simula um sistema de gerenciamento de biblioteca com determinadas operações, como o cadastro de usuários e inclusão de livros no sistema, a gestão do controle de livros e o registro de empréstimos.
 
 ### Funcionalidades:
-- Cadastro de livros
-- Registro de empréstimos e devoluções com datas
+- Gerenciamento de livros (inclusão, edição e exclusão)
+- Registro de empréstimos (inclusão, edição e exclusão)
 - Gerenciamento de usuários (inclusão, edição e exclusão)
-- Consulta de livros disponíveis e emprestados
+- Consulta de livros, usuários e empréstimos
 
 ### Requisitos:
 - Tecnologias: ASP.NET Core, Entity Framework Core

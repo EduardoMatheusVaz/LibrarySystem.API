@@ -8,8 +8,8 @@
 - Consulta de livros, usuários e empréstimos
 
 ### Requisitos:
-- Tecnologias: ASP.NET Core, Entity Framework Core
-- Arquitetura: Clean Architecture e padrão Repository
+- Tecnologias: ASP.NET Core, Entity Framework Core, Fluent Validation, Dapper e MediatR
+- Arquitetura: Clean Architecture, Padrão Repository e Padrão CQRS
 - Banco de Dados: SQL Server
 
 

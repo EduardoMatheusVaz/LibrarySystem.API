@@ -1,18 +1,19 @@
 ﻿using LibrarySystem.Core.Enums;
-using System.Linq.Expressions;
+using System.Linq;
 
 namespace LibrarySystem.Core.Entities;
 
 public class Book : BaseEntity
 {
-    public Book(string title, string author, string iSBN, int year, string synopsis)
+    public Book(string title, string author, string iSBN, int year, string synopsis, string gender)
     {
         Title = title;
         Author = author;
         ISBN = iSBN;
         Year = year;
         Synopsis = synopsis;
-
+        Gender = gender;
+         
         Status = BookStatusEnum.Available;
     }
 
@@ -27,6 +28,7 @@ public class Book : BaseEntity
     public string ISBN { get; private set; }
     public int Year  { get; private set; }
     public string Synopsis { get; private set; }
+    public string Gender { get; private set; }
     public BookStatusEnum Status { get; private set; }
 
 

@@ -1,39 +1,24 @@
-﻿using Dapper;
-using LibrarySystem.Infrastructure.Persistence;
+﻿using LibrarySystem.Core.Entities;
+using LibrarySystem.Core.Repositories;
 using MediatR;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibrarySystem.Application.Commands.UpdateBook;
 
 public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Unit>
 {
-    private readonly string _connectionstring;
+    private readonly IBookRepository _bookRepository;
 
-    public UpdateBookCommandHandler(IConfiguration configuration)
+    public UpdateBookCommandHandler(IBookRepository bookRepository)
     {
-        _connectionstring = configuration.GetConnectionString("DataBase");
+        _bookRepository = bookRepository;
     }
 
     public async Task<Unit> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
     {
-        {
-            using (var sqlConnection = new SqlConnection(_connectionstring))
-            {
-                sqlConnection.Open();
+        var book = new Book(request.Title, request.Author, request.ISBN, request.Year, request.Synopsis, request.Gender);
 
-                var script = "UPDATE tb_Book SET Title = @Title, Author = @Author, ISBN = @ISBN, Year = @Year, Synopsis = @Synopsis WHERE Id = @Id";
+        await _bookRepository.Update(request.Id, book);
 
-                await sqlConnection.ExecuteAsync(script, new {Title = request.Title, Author = request.Author, ISBN = request.ISBN, Year = request.Year, Synopsis = request.Synopsis, Id = request.Id});
-
-                return Unit.Value;
-            }
-        }
+        return Unit.Value;
     }
 }

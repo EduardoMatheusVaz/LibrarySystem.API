@@ -1,9 +1,6 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LibrarySystem.Core.Enums;
+using MediatR;
+using System.Text.Json.Serialization;
 
 namespace LibrarySystem.Application.Commands.CreateBook;
 
@@ -14,4 +11,5 @@ public class CreateBookCommand : IRequest<int>
     public string ISBN { get; set; }
     public int Year { get; set; }
     public string Synopsis { get; set; }
+    public string Gender{ get; set; }
 }

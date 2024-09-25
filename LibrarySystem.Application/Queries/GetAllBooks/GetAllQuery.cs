@@ -17,4 +17,5 @@ public class GetAllQuery : IRequest<List<BookViewModel>>
     public string ISBN { get; set; }
     public int Year { get; set; }
     public string Synopsis { get; set; }
+    public string Gender { get; set; }
 }

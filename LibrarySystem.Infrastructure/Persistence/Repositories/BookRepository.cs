@@ -1,15 +1,10 @@
-﻿using Azure.Core;
-using Dapper;
+﻿using Dapper;
 using LibrarySystem.Core.Entities;
 using LibrarySystem.Core.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LibrarySystem.Infrastructure.Persistence.Repositories;
 
@@ -34,7 +29,12 @@ public class BookRepository : IBookRepository
 
     public async Task<int> Create(Book book)
     {
-        var newBook = new Book(book.Title, book.Author, book.ISBN, book.Year, book.Synopsis);
+        var newBook = new Book(book.Title, book.Author, book.ISBN, book.Year, book.Synopsis, book.Gender);
+        if(book.Gender != "Romance" || book.Gender != "Ficção Científica" || book.Gender != "Fantasia" || book.Gender != "Terror" || book.Gender != "Aventura" || book.Gender != "Biografia" || book.Gender != "História" || book.Gender != "Autoajuda")
+        {
+            Console.Write("Gênero inválido! O Gênero informado não corresponde aos Gêneros disponíveis existentes!");
+        }
+
         await _dbcontext.Book.AddAsync(newBook);
         await _dbcontext.SaveChangesAsync();
 
@@ -57,7 +57,7 @@ public class BookRepository : IBookRepository
         {
             sqlConnection.Open();
 
-            var script = "SELECT Id, Title, Author, ISBN, Year, Synopsis FROM tb_Book";
+            var script = "SELECT Id, Title, Author, ISBN, Year, Synopsis, Gender FROM tb_Book";
 
             var books = await sqlConnection.QueryAsync<Book>(script);
 
@@ -71,12 +71,12 @@ public class BookRepository : IBookRepository
         {
             sqlConnection.Open();
 
-            var script = "SELECT Id, Title, Author, ISBN, Year, Synopsis, Status FROM tb_Book WHERE Id = @Id";
+            var script = "SELECT Id, Title, Author, ISBN, Year, Synopsis, Gender, Status, FROM tb_Book WHERE Id = @Id";
 
             var book = await sqlConnection.QueryFirstAsync<Book>(script, new { Id = id });
 
             return book;
-        }
+        } 
     }
 
     public async Task Late(int id)
@@ -112,9 +112,9 @@ public class BookRepository : IBookRepository
         {
             sqlConnection.Open();
 
-            var script = "UPDATE tb_Book SET Title = @Title, Author = @Author, ISBN = @ISBN, Year = @Year, Synopsis = @Synopsis WHERE Id = @Id";
+            var script = "UPDATE tb_Book SET Title = @Title, Author = @Author, ISBN = @ISBN, Year = @Year, Synopsis = @Synopsis, Gender = @Gender WHERE Id = @Id";
 
-            var bookUpdate = await sqlConnection.ExecuteAsync(script, new { Title = book.Title, Author = book.Author, ISBN = book.ISBN, Year = book.Year, Synopsis = book.Synopsis });
+            var bookUpdate = await sqlConnection.ExecuteAsync(script, new { Title = book.Title, Author = book.Author, ISBN = book.ISBN, Year = book.Year, Synopsis = book.Synopsis, Gender = book.Gender, Id = id});
         }
     }
 }

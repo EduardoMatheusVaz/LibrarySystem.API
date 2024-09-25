@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibrarySystem.Application.Commands.CreateBook;
+using LibrarySystem.Core.ValueObjetc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace LibrarySystem.Application.Validators.Book;
  
 public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
 {
+    private readonly CreateBookCommand _createBookCommand;
+    public CreateBookCommandValidator(CreateBookCommand createBookCommand)
+    {
+        _createBookCommand = createBookCommand;
+    }
 
     public CreateBookCommandValidator()
     {
@@ -45,5 +51,12 @@ public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
             .WithMessage("Sinopse não pode ser vazia e nem nula!")
             .MaximumLength(255)
             .WithMessage("Sinopse não é válida! Foi excedido o limite de 255 caracteres!");
+
+
+        RuleFor(g => g.Gender)
+            .NotEmpty()
+            .WithMessage("Gênero não pode ser nulo nem branco!")
+            .Must(g => GenderList.Genders.Contains(g))
+            .WithMessage("Gênero inválido! O Gênero informado não corresponde aos Gêneros disponíveis existentes!");
     }
 }

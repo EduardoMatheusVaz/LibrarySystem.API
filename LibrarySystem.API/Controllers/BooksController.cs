@@ -6,6 +6,8 @@ using LibrarySystem.Application.Commands.CreateBook;
 using LibrarySystem.Application.Commands.UpdateBook;
 using LibrarySystem.Application.Queries.GetAllBooks;
 using LibrarySystem.Application.Queries.GetByIdBooks;
+using LibrarySystem.Core.Entities;
+using LibrarySystem.Core.ValueObjetc;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
@@ -66,8 +68,13 @@ public class BooksController : ControllerBase
     {
         var update = new UpdateBookCommand(id);
 
-        await _mediator.Send(command);
+        //if (!GenderList.Genders.Contains(command.Gender))
+        //{
+        //    return BadRequest("Gênero inválido! O Gênero informado não corresponde aos Gêneros disponíveis existentes!");
+        //}
 
+        await _mediator.Send(command);
+        
         return NoContent();
     }
 
@@ -76,11 +83,10 @@ public class BooksController : ControllerBase
     public async Task<IActionResult> Avaible(int id)
     {
         var command = new BooksAvailableCommand(id);
-
+        
         await _mediator.Send(command);
-
+        
         return NoContent();
-
     }
 
 
@@ -90,7 +96,7 @@ public class BooksController : ControllerBase
         var command = new BookRentedCommand(id);
 
         await _mediator.Send(command);
-
+        
         return NoContent();
     }
 
@@ -99,9 +105,9 @@ public class BooksController : ControllerBase
     public IActionResult Late(int id)
     {
         var command = new BooksLateCommand(id);
-
+        
         _mediator.Send(command);
-
+        
         return NoContent();
     }
 
@@ -110,9 +116,9 @@ public class BooksController : ControllerBase
     public async Task<IActionResult> Reserved(int id)
     {
         var book = new BookRentedCommand(id);
-
+       
         await _mediator.Send(book);
-
+       
         return NoContent();
     }
 

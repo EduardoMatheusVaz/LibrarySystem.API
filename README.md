@@ -13,7 +13,7 @@
 - Banco de Dados: SQL Server
 
 ### Status do Sistema
-- BookStatusEnum | (Status dos Livros)
+####BookStatusEnum | (Status dos Livros)
   Status	    Valor	  Descrição
 - Available	    0	    Disponível
 - Rented	      1	    Alugado
@@ -22,18 +22,18 @@
 - Off	          4	    Desligado/Inativo
 
 
-- UserEnum   |   (Status dos Usuários)
+####UserEnum  |  (Status dos Usuários)
   Status	 Valor	Descrição
 - Active	   0	  Ativo
 - Off	       1	  Desligado/Inativo
 
 
-- LoanStatusEnum | (Status dos Empréstimos)
-  Status	   Valor	Descrição
-- Active	    0	    Empréstimo Ativo
-- Returned	  1	    Devolvido
-- Late	      2	    Atrasado
-- Reserved	  3	    Reservado
-- Cancelled	  4	    Cancelado
+####LoanStatusEnum | (Status dos Empréstimos)
+  Status	   Valor	  Descrição
+- Active	    0	      Empréstimo Ativo
+- Returned	  1	      Devolvido
+- Late	      2	      Atrasado
+- Reserved	  3	      Reservado
+- Cancelled	  4	      Cancelado
 
 ![image](https://github.com/user-attachments/assets/700a69e1-a7e6-41e3-a096-bf40eb56a039)

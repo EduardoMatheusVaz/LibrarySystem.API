@@ -12,7 +12,7 @@
 - Arquitetura: Clean Architecture, Padrão Repository e Padrão CQRS
 - Banco de Dados: SQL Server
 
-### Status do Sistema
+### Status do Sistema:
 #### BookStatusEnum (Status dos Livros)
 - **Available (0)**: Disponível
 - **Rented (1)**: Alugado
@@ -30,5 +30,8 @@
 - **Late (2)**: Atrasado
 - **Reserved (3)**: Reservado
 - **Cancelled (4)**: Cancelado
+
+### Excluir Dados
+- Não é possível excluir dados diretamente através do Swagger, pois isso resultaria na perda de informações associadas a outras tabelas. Ao invés de uma exclusão, deve ser atualizado o status do registro para indicar que ele foi: excluído, cancelado ou desativo. Embora ainda seja possível uma exclusão direta via banco de dados.
 
 ![image](https://github.com/user-attachments/assets/700a69e1-a7e6-41e3-a096-bf40eb56a039)
